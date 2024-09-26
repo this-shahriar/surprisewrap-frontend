@@ -26,6 +26,7 @@ export const LandingPage = () => {
   return (
     <VStack w="100%">
       <Header />
+      <Divider />
       <Grid templateColumns={`repeat(5, 1fr)`}>
         <GridItem>
           <ProductCard />

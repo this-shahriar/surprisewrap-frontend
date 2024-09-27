@@ -18,6 +18,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Login } from "../../components/Login";
 import { Registration } from "../../components/Registration";
+import { ForgetPassword } from "../../components/ForgetPassword";
 
 export const LandingPage = () => {
   const { pageMode, setPageMode, authModal, setAuthModal } =
@@ -57,14 +58,16 @@ export const LandingPage = () => {
       <Modal isOpen={authModal} onClose={() => setAuthModal(false)}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Authentication</ModalHeader>
+          {/* <ModalHeader>Authentication</ModalHeader> */}
           <ModalCloseButton />
-          <Divider />
-          <ModalBody pb="1rem">
+          {/* <Divider /> */}
+          <ModalBody p="2rem">
             {pageMode === "login" ? (
               <Login />
             ) : pageMode === "registration" ? (
               <Registration />
+            ) : pageMode === "forgotPassword" ? (
+              <ForgetPassword />
             ) : (
               ""
             )}

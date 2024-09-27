@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Button,
   FormControl,
   FormErrorMessage,
@@ -13,10 +15,14 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 export const Registration = () => {
   const {
+    watch,
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
+
+  const passWatch = watch("password");
+  const conPassWatch = watch("confirm_password");
 
   const { onRegistrationSubmit, setPageMode } = useContext(AuthContext);
 
@@ -25,6 +31,17 @@ export const Registration = () => {
       style={{ width: "100%" }}
       onSubmit={handleSubmit(onRegistrationSubmit)}
     >
+      <FormControl p="0.5rem 0" isInvalid={errors.username}>
+        <FormLabel htmlFor="username">Name</FormLabel>
+        <Input
+          id="username"
+          type="username"
+          placeholder="Name"
+          {...register("username", { required: "Name is required" })}
+        />
+        <FormErrorMessage>{errors?.emusernameail?.message}</FormErrorMessage>
+      </FormControl>
+
       <FormControl p="0.5rem 0" isInvalid={errors.email}>
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input
@@ -46,6 +63,18 @@ export const Registration = () => {
         <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
       </FormControl>
 
+      {passWatch && passWatch?.length < 8 && (
+        <Alert
+          fontSize="0.85rem"
+          status="error"
+          p="0.5rem 1rem"
+          borderRadius="6px"
+        >
+          <AlertIcon />
+          Minimum password length is 8
+        </Alert>
+      )}
+
       <FormControl p="0.5rem 0" isInvalid={errors.confirm_password}>
         <FormLabel htmlFor="confirm_password">Confirm Password</FormLabel>
         <Input
@@ -59,11 +88,27 @@ export const Registration = () => {
         <FormErrorMessage>{errors?.confirm_password?.message}</FormErrorMessage>
       </FormControl>
 
+      {passWatch &&
+        conPassWatch &&
+        passWatch?.length >= 8 &&
+        passWatch != conPassWatch && (
+          <Alert
+            fontSize="0.85rem"
+            status="error"
+            p="0.5rem 1rem"
+            borderRadius="6px"
+          >
+            <AlertIcon />
+            Passwords do not match!
+          </Alert>
+        )}
+
       <Button
         mt={4}
         w="100%"
         type="submit"
         colorScheme="green"
+        isDisabled={passWatch?.length < 8 || passWatch != conPassWatch}
         // isLoading={submitLoading}
       >
         Submit

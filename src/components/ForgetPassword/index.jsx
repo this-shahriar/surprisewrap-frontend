@@ -11,17 +11,21 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext";
 
-export const Login = () => {
+export const ForgetPassword = () => {
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const { onLoginSubmit, setPageMode } = useContext(AuthContext);
+  const { onLoginSubmit, setPageMode, onForgetEmailSubmit } =
+    useContext(AuthContext);
 
   return (
-    <form style={{ width: "100%" }} onSubmit={handleSubmit(onLoginSubmit)}>
+    <form
+      style={{ width: "100%" }}
+      onSubmit={handleSubmit(onForgetEmailSubmit)}
+    >
       <FormControl p="0.5rem 0" isInvalid={errors.email}>
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input
@@ -31,25 +35,6 @@ export const Login = () => {
           {...register("email", { required: "Email is required" })}
         />
         <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
-      </FormControl>
-      <FormControl p="0.5rem 0" isInvalid={errors.password}>
-        <FormLabel htmlFor="password">Password</FormLabel>
-        <Input
-          id="password"
-          type="password"
-          placeholder="Password"
-          {...register("password", { required: "Password is required" })}
-        />
-        <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
-        <Button
-          opacity={0.8}
-          variant="link"
-          fontSize="0.7rem"
-          textDecoration="underline"
-          onClick={() => setPageMode("forgotPassword")}
-        >
-          Forgot password?
-        </Button>
       </FormControl>
 
       <Button
@@ -66,9 +51,9 @@ export const Login = () => {
           variant="link"
           fontSize="0.8rem"
           textDecoration="underline"
-          onClick={() => setPageMode("registration")}
+          onClick={() => setPageMode("login")}
         >
-          Don't have an account? Sign Up
+          Go back to login page
         </Button>
       </VStack>
     </form>

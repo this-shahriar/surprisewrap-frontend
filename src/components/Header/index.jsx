@@ -12,7 +12,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { MdOutlineDarkMode, MdOutlineShoppingCart } from "react-icons/md";
 
 export const Header = () => {
-  const { setAuthModal } = useContext(AuthContext);
+  const { setAuthModal, isLoggedIn, logout } = useContext(AuthContext);
 
   return (
     <HStack w="100%" justifyContent="space-between" p="1rem 1rem 0 1rem">
@@ -29,13 +29,19 @@ export const Header = () => {
           icon={<Icon as={MdOutlineShoppingCart} />}
         />
         <Divider w="1rem" />
-        <Button
-          colorScheme="green"
-          variant="link"
-          onClick={() => setAuthModal(true)}
-        >
-          Login
-        </Button>
+        {isLoggedIn ? (
+          <Button colorScheme="red" variant="link" onClick={logout}>
+            Logout
+          </Button>
+        ) : (
+          <Button
+            colorScheme="green"
+            variant="link"
+            onClick={() => setAuthModal(true)}
+          >
+            Login
+          </Button>
+        )}
       </HStack>
     </HStack>
   );

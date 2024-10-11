@@ -24,7 +24,8 @@ export const Registration = () => {
   const passWatch = watch("password");
   const conPassWatch = watch("confirm_password");
 
-  const { onRegistrationSubmit, setPageMode } = useContext(AuthContext);
+  const { onRegistrationSubmit, setPageMode, authLoader } =
+    useContext(AuthContext);
 
   return (
     <form
@@ -109,7 +110,7 @@ export const Registration = () => {
         type="submit"
         colorScheme="green"
         isDisabled={passWatch?.length < 8 || passWatch != conPassWatch}
-        // isLoading={submitLoading}
+        isLoading={authLoader?.onRegistrationSubmit}
       >
         Submit
       </Button>

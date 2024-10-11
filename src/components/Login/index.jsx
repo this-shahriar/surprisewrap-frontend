@@ -18,7 +18,7 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const { onLoginSubmit, setPageMode } = useContext(AuthContext);
+  const { onLoginSubmit, setPageMode, authLoader } = useContext(AuthContext);
 
   return (
     <form style={{ width: "100%" }} onSubmit={handleSubmit(onLoginSubmit)}>
@@ -57,7 +57,7 @@ export const Login = () => {
         w="100%"
         type="submit"
         colorScheme="green"
-        // isLoading={submitLoading}
+        isLoading={authLoader?.onLoginSubmit}
       >
         Submit
       </Button>

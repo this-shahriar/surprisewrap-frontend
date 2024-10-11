@@ -7,9 +7,15 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { MdAdd } from "react-icons/md";
+import { useContext } from "react";
+import { MdAdd, MdDelete, MdDeleteOutline, MdRemove } from "react-icons/md";
+import { ProductsContext } from "../../../contexts/ProductsContext";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 export const ProductCard = ({ product }) => {
+  const { isLoggedIn, setAuthModal } = useContext(AuthContext);
+  const { addToCart, removeFromCart, cart } = useContext(ProductsContext);
+
   return (
     <VStack w="18rem" p="1rem" spacing={0}>
       <Flex
@@ -51,7 +57,24 @@ export const ProductCard = ({ product }) => {
             lineHeight={0.2}
           >{`${product?.price} ${product?.currency}`}</Text>
         </VStack>
-        <IconButton variant="outline" icon={<Icon as={MdAdd} />} />
+        {cart.map((ci) => ci?.id)?.includes(product?.id) ? (
+          <IconButton
+            variant="outline"
+            colorScheme="orange"
+            icon={<Icon as={MdDeleteOutline} />}
+            onClick={() => removeFromCart(product)}
+          />
+        ) : (
+          <IconButton
+            variant="outline"
+            icon={<Icon as={MdAdd} />}
+            isDisabled={cart?.length === 3}
+            onClick={() => {
+              addToCart(product);
+              if (!isLoggedIn) setAuthModal(true);
+            }}
+          />
+        )}
       </HStack>
     </VStack>
   );

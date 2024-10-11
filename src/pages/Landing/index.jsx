@@ -19,6 +19,15 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { Login } from "../../components/Login";
 import { Registration } from "../../components/Registration";
 import { ForgetPassword } from "../../components/ForgetPassword";
+import { SearchBar } from "../../components/Search";
+import { ProductSection } from "../../components/Products/ProductSection";
+import {
+  chocolates,
+  flowersItems,
+  houseDecor,
+  toys,
+  warmClothItems,
+} from "../../components/Products/dummy";
 
 export const LandingPage = () => {
   const { pageMode, setPageMode, authModal, setAuthModal } =
@@ -27,33 +36,12 @@ export const LandingPage = () => {
   return (
     <VStack w="100%">
       <Header />
-      <Divider />
-      <Grid templateColumns={`repeat(5, 1fr)`}>
-        <GridItem>
-          <ProductCard />
-        </GridItem>
-        <GridItem>
-          <ProductCard />
-        </GridItem>
-        <GridItem>
-          <ProductCard />
-        </GridItem>
-        <GridItem>
-          <ProductCard />
-        </GridItem>
-        <GridItem>
-          <ProductCard />
-        </GridItem>
-        <GridItem>
-          <ProductCard />
-        </GridItem>
-        <GridItem>
-          <ProductCard />
-        </GridItem>
-        <GridItem>
-          <ProductCard />
-        </GridItem>
-      </Grid>
+      <SearchBar />
+      <ProductSection name="Toys for children" products={toys} />
+      <ProductSection name="Flowers" products={flowersItems} />
+      <ProductSection name="Feel warm" products={warmClothItems} />
+      <ProductSection name="Chocolates" products={chocolates} />
+      <ProductSection name="Home decoration" products={houseDecor} />
 
       <Modal isOpen={authModal} onClose={() => setAuthModal(false)}>
         <ModalOverlay />

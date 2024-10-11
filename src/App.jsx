@@ -18,10 +18,10 @@ const App = () => {
     <Container>
       <VStack
         w="100%"
-        h="100vh"
+        minH="100vh"
         spacing={0}
         display="flex"
-        overflow="hidden"
+        overflowX="hidden"
         alignItems="start"
       >
         {routing}

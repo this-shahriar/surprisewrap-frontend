@@ -19,11 +19,11 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const onRegistrationSubmit = async (values) => {
-    const { username, email, password } = values;
+    const { name, email, password } = values;
     console.log("onRegistrationSubmit", values);
     const res = await post({
       url: ENDPOINTS.register,
-      data: { username, email, password },
+      data: { name, email, password, role: "customer" },
     });
     if (res) {
       setPageMode("login");

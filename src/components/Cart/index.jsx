@@ -11,35 +11,46 @@ export const Cart = () => {
       <Text fontWeight="bold" fontSize="1.4rem">
         Your Gift Cart
       </Text>
-      <Text pb="1rem" fontSize="0.85rem" opacity={0.6}>
+      <Text
+        data-testid="cart-description"
+        pb="1rem"
+        fontSize="0.85rem"
+        opacity={0.6}
+      >
         Your have reached maximum number of product for a single gift wrap.
         Proceed to order page to select wrapping paper and recipient addresses.
       </Text>
-      {cart?.map((item) => (
-        <HStack w="100%" justifyContent="space-between" key={item?.id}>
-          <HStack p="0.4rem 0">
-            <Avatar src={item?.image} />
-            <VStack alignItems="start">
-              <Text fontWeight="bold">{item?.name}</Text>
-              <Text
-                fontSize="0.8rem"
-                fontWeight="bold"
-                opacity={0.5}
-                lineHeight={0.2}
-              >{`${item?.price} ${item?.currency}`}</Text>
-            </VStack>
+      {cart?.length > 0 ? (
+        cart?.map((item) => (
+          <HStack w="100%" justifyContent="space-between" key={item?.id}>
+            <HStack p="0.4rem 0">
+              <Avatar src={item?.image} />
+              <VStack alignItems="start">
+                <Text fontWeight="bold">{item?.name}</Text>
+                <Text
+                  fontSize="0.8rem"
+                  fontWeight="bold"
+                  opacity={0.5}
+                  lineHeight={0.2}
+                >{`${item?.price} ${item?.currency}`}</Text>
+              </VStack>
+            </HStack>
+            <Button
+              size="sm"
+              leftIcon={<Icon as={MdDeleteOutline} />}
+              colorScheme="red"
+              variant="outline"
+              onClick={() => removeFromCart(item)}
+            >
+              Remove
+            </Button>
           </HStack>
-          <Button
-            size="sm"
-            leftIcon={<Icon as={MdDeleteOutline} />}
-            colorScheme="red"
-            variant="outline"
-            onClick={() => removeFromCart(item)}
-          >
-            Remove
-          </Button>
-        </HStack>
-      ))}
+        ))
+      ) : (
+        <Text fontSize="0.9rem" opacity={0.5} fontWeight="bold">
+          Your cart is empty.
+        </Text>
+      )}
       <Button
         mt="1rem"
         w="100%"

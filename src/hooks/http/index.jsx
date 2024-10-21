@@ -19,11 +19,12 @@ export const useHttp = () => {
         return res.data;
       } else return null;
     } catch (error) {
-      toast({
-        title: "Error",
-        description: JSON.stringify(error?.response?.data),
-        status: "error",
-      });
+      if (error?.response?.data?.message) {
+        toast({
+          description: error.response.data.message,
+          status: "error",
+        });
+      }
       return null;
     }
   };
@@ -42,11 +43,13 @@ export const useHttp = () => {
       else if (res?.status === 200) return res?.data;
       else return null;
     } catch (error) {
-      toast({
-        title: "Error",
-        description: JSON.stringify(error?.response?.data),
-        status: "error",
-      });
+      if (error?.response?.data?.message) {
+        toast({
+          title: "Error",
+          description: error.response.data.message,
+          status: "error",
+        });
+      }
 
       return null;
       // todo logout
@@ -67,11 +70,13 @@ export const useHttp = () => {
       else if (res?.status === 200) return res?.data;
       else return null;
     } catch (error) {
-      toast({
-        title: "Error",
-        description: JSON.stringify(error?.response?.data),
-        status: "error",
-      });
+      if (error?.response?.data?.message) {
+        toast({
+          title: "Error",
+          description: error.response.data.message,
+          status: "error",
+        });
+      }
 
       return null;
       // todo logout
@@ -90,11 +95,13 @@ export const useHttp = () => {
       else if (res?.status === 200) return res?.data;
       else return null;
     } catch (error) {
-      toast({
-        title: "Error",
-        description: JSON.stringify(error?.response?.data),
-        status: "error",
-      });
+      if (error?.response?.data?.message) {
+        toast({
+          title: "Error",
+          description: error.response.data.message,
+          status: "error",
+        });
+      }
 
       return null;
     }

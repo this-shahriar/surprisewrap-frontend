@@ -17,17 +17,11 @@ import { Registration } from "../../components/Registration";
 import { ForgetPassword } from "../../components/ForgetPassword";
 import { SearchBar } from "../../components/Search";
 import { ProductSection } from "../../components/Products/ProductSection";
-import {
-  chocolates,
-  flowersItems,
-  houseDecor,
-  toys,
-  warmClothItems,
-} from "../../components/Products/dummy";
 import { ProductsContext } from "../../contexts/ProductsContext";
 import { Cart } from "../../components/Cart";
 import { ProductMan } from "../../components/ProductMan";
 import { FcInfo } from "react-icons/fc";
+import { Footer } from "../../components/Footer";
 
 export const LandingPage = () => {
   const { pageMode, user, authModal, setAuthModal } = useContext(AuthContext);
@@ -87,6 +81,7 @@ export const LandingPage = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
+      <Footer />
     </VStack>
   );
 };

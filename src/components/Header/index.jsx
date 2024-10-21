@@ -14,8 +14,10 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { MdOutlineDarkMode, MdOutlineShoppingCart } from "react-icons/md";
 import { ProductsContext } from "../../contexts/ProductsContext";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const navigate = useNavigate();
   const { setAuthModal, isLoggedIn, logout } = useContext(AuthContext);
   const { cart, setCartModal } = useContext(ProductsContext);
 
@@ -27,7 +29,12 @@ export const Header = () => {
         justifyContent="space-between"
         p="1rem 1rem 0 1rem"
       >
-        <Image h="2.4rem" objectFit="contain" src={sw} />
+        <Image
+          h="2.4rem"
+          objectFit="contain"
+          src={sw}
+          onClick={() => navigate("/")}
+        />
         <HStack justifyContent="space-between">
           {cart?.length > 0 && (
             <HStack
@@ -52,9 +59,24 @@ export const Header = () => {
             </HStack>
           )}
           {isLoggedIn ? (
-            <Button colorScheme="red" variant="link" onClick={logout}>
-              Logout
-            </Button>
+            <HStack>
+              <Button
+                size="sm"
+                colorScheme="green"
+                variant="outline"
+                onClick={() => navigate("/orders")}
+              >
+                Orders
+              </Button>
+              <Button
+                colorScheme="red"
+                onClick={logout}
+                size="sm"
+                variant="outline"
+              >
+                Logout
+              </Button>
+            </HStack>
           ) : (
             <Button
               colorScheme="green"

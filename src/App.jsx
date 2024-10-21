@@ -6,7 +6,8 @@ import { LandingPage } from "./pages/Landing";
 import { Container } from "./components/Container";
 import { ProductsContextProvider } from "./contexts/ProductsContext";
 import { AuthContext } from "./contexts/AuthContext";
-import { Orders } from "./pages/Order";
+import { Orders } from "./pages/Orders";
+import { OrdersContextProvider } from "./contexts/OrdersContext";
 
 const App = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -22,16 +23,18 @@ const App = () => {
   return (
     <Container>
       <ProductsContextProvider>
-        <VStack
-          w="100%"
-          minH="100vh"
-          spacing={0}
-          display="flex"
-          overflowX="hidden"
-          alignItems="start"
-        >
-          {routing}
-        </VStack>
+        <OrdersContextProvider>
+          <VStack
+            w="100%"
+            minH="100vh"
+            spacing={0}
+            display="flex"
+            overflowX="hidden"
+            alignItems="start"
+          >
+            {routing}
+          </VStack>
+        </OrdersContextProvider>
       </ProductsContextProvider>
     </Container>
   );

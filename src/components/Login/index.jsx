@@ -41,7 +41,7 @@ export const Login = () => {
           {...register("password", { required: "Password is required" })}
         />
         <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
-        <Button
+        {/* <Button
           opacity={0.8}
           variant="link"
           fontSize="0.7rem"
@@ -49,7 +49,7 @@ export const Login = () => {
           onClick={() => setPageMode("forgotPassword")}
         >
           Forgot password?
-        </Button>
+        </Button> */}
       </FormControl>
 
       <Button

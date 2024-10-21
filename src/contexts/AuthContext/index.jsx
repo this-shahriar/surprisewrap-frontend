@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { useHttp } from "../../hooks/http";
 import { ENDPOINTS } from "../../configs/readable";
+import { useToast } from "@chakra-ui/react";
 
 export const AuthContext = createContext({});
 
@@ -11,6 +12,7 @@ export const AuthContextProvider = ({ children }) => {
   const { get, post } = useHttp();
   const [authLoader, setAuthLoader] = useState({});
   const [user, setUser] = useState();
+  const toast = useToast();
 
   const onLoginSubmit = async (data) => {
     setAuthLoader((al) => ({ ...al, onLoginSubmit: true }));
@@ -19,6 +21,7 @@ export const AuthContextProvider = ({ children }) => {
       setUser(res);
       setIsLoggedIn(true);
       setAuthModal();
+      toast({ description: "Logged in successfully.", status: "success" });
     }
     setAuthLoader((al) => ({ ...al, onLoginSubmit: false }));
   };

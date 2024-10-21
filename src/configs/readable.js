@@ -6,4 +6,5 @@ export const ENDPOINTS = {
   products: base_url + "products",
   orders: base_url + "orders",
   giftPackages: base_url + "gift-packages",
+  ordersByUser: base_url + "orders/user",
 };

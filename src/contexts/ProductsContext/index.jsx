@@ -114,6 +114,7 @@ export const ProductsContextProvider = ({ children }) => {
         products,
         updateProduct,
         deleteProduct,
+        setCart,
       }}
     >
       {children}

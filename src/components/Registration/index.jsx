@@ -32,15 +32,15 @@ export const Registration = () => {
       style={{ width: "100%" }}
       onSubmit={handleSubmit(onRegistrationSubmit)}
     >
-      <FormControl p="0.5rem 0" isInvalid={errors.name}>
-        <FormLabel htmlFor="name">Name</FormLabel>
+      <FormControl p="0.5rem 0" isInvalid={errors.username}>
+        <FormLabel htmlFor="username">Username</FormLabel>
         <Input
-          id="name"
-          type="name"
-          placeholder="Name"
-          {...register("name", { required: "Name is required" })}
+          id="username"
+          type="username"
+          placeholder="Username"
+          {...register("username", { required: "Username is required" })}
         />
-        <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
+        <FormErrorMessage>{errors?.username?.message}</FormErrorMessage>
       </FormControl>
 
       <FormControl p="0.5rem 0" isInvalid={errors.email}>

@@ -1,8 +1,5 @@
 import {
-  Divider,
-  Flex,
-  Grid,
-  GridItem,
+  Icon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,7 +10,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Header } from "../../components/Header";
-import { ProductCard } from "../../components/Products/ProductCard";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Login } from "../../components/Login";
@@ -30,58 +26,34 @@ import {
 } from "../../components/Products/dummy";
 import { ProductsContext } from "../../contexts/ProductsContext";
 import { Cart } from "../../components/Cart";
+import { ProductMan } from "../../components/ProductMan";
+import { FcInfo } from "react-icons/fc";
 
 export const LandingPage = () => {
-  const { pageMode, setPageMode, authModal, setAuthModal } =
-    useContext(AuthContext);
+  const { pageMode, user, authModal, setAuthModal } = useContext(AuthContext);
 
-  const { setSearchIndex, visibleItems, cartModal, setCartModal } =
+  const { getProducts, visibleItems, cartModal, setCartModal, products } =
     useContext(ProductsContext);
 
   useEffect(() => {
-    setSearchIndex([
-      ...toys.map((item) => ({
-        ...item,
-        category: "toy",
-        searchKey: `${item?.name?.toLowerCase()} toy`,
-      })),
-      ...flowersItems.map((item) => ({
-        ...item,
-        category: "flower",
-        searchKey: `${item?.name?.toLowerCase()} flower`,
-      })),
-      ...warmClothItems.map((item) => ({
-        ...item,
-        category: "feel warm",
-        searchKey: `${item?.name?.toLowerCase()} feel warm winter`,
-      })),
-      ...chocolates.map((item) => ({
-        ...item,
-        category: "chocolate",
-        searchKey: `${item?.name?.toLowerCase()} chocolate`,
-      })),
-      ...houseDecor.map((item) => ({
-        ...item,
-        category: "home decoration",
-        searchKey: `${item?.name?.toLowerCase()} home decoration house`,
-      })),
-    ]);
+    getProducts();
   }, []);
 
   return (
     <VStack w="100%">
       <Header />
-      <SearchBar />
-      {visibleItems ? (
-        <ProductSection name="Results" products={visibleItems} />
-      ) : (
+      {user?.role === "manager" ? (
+        <ProductMan />
+      ) : products?.length > 0 ? (
         <>
-          <ProductSection name="Toys for children" products={toys} />
-          <ProductSection name="Flowers" products={flowersItems} />
-          <ProductSection name="Feel warm" products={warmClothItems} />
-          <ProductSection name="Chocolates" products={chocolates} />
-          <ProductSection name="Home decoration" products={houseDecor} />
+          <SearchBar />
+          <ProductSection products={products} />
         </>
+      ) : (
+        <VStack opacity={0.6} pt="5rem">
+          <Icon fontSize="1.4rem" as={FcInfo} />
+          <Text fontSize="1rem">Empty</Text>
+        </VStack>
       )}
 
       <Modal isOpen={authModal} onClose={() => setAuthModal(false)}>

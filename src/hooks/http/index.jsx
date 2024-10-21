@@ -10,13 +10,13 @@ export const useHttp = () => {
       const res = await axios({
         method: "GET",
         url: url,
-        //   headers: { token: token },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         params: params,
       });
 
       if (res && getFull) return res;
-      else if (res?.status === 200 && res.data?.data) {
-        return res.data.data;
+      else if (res?.status === 200 && res.data) {
+        return res.data;
       } else return null;
     } catch (error) {
       toast({
@@ -33,7 +33,7 @@ export const useHttp = () => {
       const res = await axios({
         method: "POST",
         url: url,
-        // headers: { token: token, ...header },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         data: { ...data },
       });
 
@@ -53,5 +53,52 @@ export const useHttp = () => {
     }
   };
 
-  return { get, post };
+  const put = async ({ url, token, data, header, extEndpoint }) => {
+    try {
+      const res = await axios({
+        method: "PUT",
+        url: url,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        data: { ...data },
+      });
+
+      // if (res?.status === 201) return true;
+      if (res?.status === 201) return res?.data || true;
+      else if (res?.status === 200) return res?.data;
+      else return null;
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: JSON.stringify(error?.response?.data),
+        status: "error",
+      });
+
+      return null;
+      // todo logout
+    }
+  };
+
+  const del = async ({ url, token, extEndpoint }) => {
+    try {
+      const res = await axios({
+        method: "DELETE",
+        url: url,
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+
+      if (res?.status === 201) return res?.data || true;
+      else if (res?.status === 200) return res?.data;
+      else return null;
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: JSON.stringify(error?.response?.data),
+        status: "error",
+      });
+
+      return null;
+    }
+  };
+
+  return { get, post, put, del };
 };

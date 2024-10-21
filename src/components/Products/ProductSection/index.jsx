@@ -23,13 +23,6 @@ export const ProductSection = ({ name, products }) => {
         </Text>
         <Divider />
       </HStack>
-      {/* <Grid templateColumns={`repeat(5, 1fr)`}>
-        {products?.map((item) => (
-          <GridItem key={item?.id}>
-            <ProductCard product={item} />
-          </GridItem>
-        ))}
-      </Grid> */}
       <VStack w="100%" alignItems="center">
         <Flex flexDir="row" w="100%" flexWrap="wrap" justifyContent="center">
           {products?.map((item) => (

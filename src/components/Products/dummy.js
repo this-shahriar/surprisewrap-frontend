@@ -17,7 +17,7 @@ export const toys = [
   },
   {
     id: 3,
-    name: "Penguins - Set of 5",
+    name: "1",
     price: 119,
     currency: "kr",
     image:

@@ -10,12 +10,13 @@ export const AuthContextProvider = ({ children }) => {
   const [pageMode, setPageMode] = useState("login");
   const { get, post } = useHttp();
   const [authLoader, setAuthLoader] = useState({});
+  const [user, setUser] = useState();
 
   const onLoginSubmit = async (data) => {
     setAuthLoader((al) => ({ ...al, onLoginSubmit: true }));
-    console.log("onLoginSubmit", data);
     const res = await post({ url: ENDPOINTS.login, data });
     if (res) {
+      setUser(res);
       setIsLoggedIn(true);
       setAuthModal();
     }
@@ -24,10 +25,9 @@ export const AuthContextProvider = ({ children }) => {
 
   const onRegistrationSubmit = async (values) => {
     setAuthLoader((al) => ({ ...al, onRegistrationSubmit: true }));
-    const { name, email, password } = values;
     const res = await post({
       url: ENDPOINTS.register,
-      data: { name, email, password, role: "customer" },
+      data: { ...values },
     });
     if (res) {
       setPageMode("login");
@@ -39,9 +39,9 @@ export const AuthContextProvider = ({ children }) => {
     console.log("onForgetEmailSubmit", data);
   };
 
-  const login = async () => {};
   const logout = async () => {
     setIsLoggedIn(false);
+    setUser();
   };
 
   return (
@@ -57,6 +57,7 @@ export const AuthContextProvider = ({ children }) => {
         onForgetEmailSubmit,
         logout,
         authLoader,
+        user,
       }}
     >
       {children}

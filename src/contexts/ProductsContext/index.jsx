@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useHttp } from "../../hooks/http";
 import { ENDPOINTS } from "../../configs/readable";
 import { AuthContext } from "../AuthContext";
@@ -15,14 +15,15 @@ export const ProductsContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [createProductModal, setCreateProductModal] = useState();
   const [products, setProducts] = useState();
+  const [searchParams, setSearchParams] = useState({});
   const toast = useToast();
 
   const getProducts = async () => {
-    const res = await get({ url: ENDPOINTS.products });
-    if (res) {
-      console.log(res);
-      setProducts(res);
-    }
+    const res = await get({
+      url: ENDPOINTS.products,
+      params: { ...searchParams },
+    });
+    if (res) setProducts(res);
   };
 
   const createProduct = async (values) => {
@@ -93,6 +94,10 @@ export const ProductsContextProvider = ({ children }) => {
     setCart((cart) => cart?.filter((ci) => ci?.id != item.id));
   };
 
+  useEffect(() => {
+    getProducts();
+  }, [JSON.stringify(searchParams)]);
+
   return (
     <ProductsContext.Provider
       value={{
@@ -115,6 +120,8 @@ export const ProductsContextProvider = ({ children }) => {
         updateProduct,
         deleteProduct,
         setCart,
+        setSearchParams,
+        searchParams,
       }}
     >
       {children}

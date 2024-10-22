@@ -29,8 +29,8 @@ import { ProductsContext } from "../../contexts/ProductsContext";
 
 export const SearchBar = () => {
   const [checkedItems, setCheckedItems] = useState([]);
-  const [searchStr, setSearchStr] = useState();
-  const { applyFilter, search } = useContext(ProductsContext);
+  const { applyFilter, search, setSearchParams, searchParams } =
+    useContext(ProductsContext);
 
   useEffect(() => {
     if (checkedItems) applyFilter(checkedItems);
@@ -44,7 +44,10 @@ export const SearchBar = () => {
           borderRadius="100px 0 0 100px"
           placeholder="Looking for flowers?"
           onChange={(e) => {
-            setSearchStr(e?.target?.value?.toLowerCase());
+            setSearchParams((p) => ({
+              ...p,
+              search: e?.target?.value?.toLowerCase(),
+            }));
             search(e?.target?.value?.toLowerCase());
           }}
           _focus={{ borderColor: "green.500" }}
@@ -67,7 +70,6 @@ export const SearchBar = () => {
             />
           </MenuButton>
           <MenuList p="1rem" boxShadow="rgba(0, 0, 0, 0.1) 0px 4px 12px">
-            {/* MenuItems are not rendered unless Menu is open */}
             <HStack pb="0.5rem" w="100%">
               <Text fontSize="0.8rem" fontWeight="bold" opacity={0.6}>
                 Filters
@@ -78,65 +80,60 @@ export const SearchBar = () => {
               <Checkbox
                 size="sm"
                 colorScheme="green"
-                onChange={(e) =>
+                isChecked={searchParams?.category == "toy"}
+                onChange={(e) => {
                   e?.target?.checked
-                    ? setCheckedItems((ci) => [...ci, "toy"])
-                    : setCheckedItems((ci) =>
-                        ci?.filter((item) => item != "toy")
-                      )
-                }
+                    ? setSearchParams((p) => ({ ...p, category: "toy" }))
+                    : setSearchParams((p) => ({ ...p, category: "" }));
+                }}
               >
                 Toys
               </Checkbox>
               <Checkbox
                 size="sm"
                 colorScheme="green"
-                onChange={(e) =>
+                isChecked={searchParams?.category == "flower"}
+                onChange={(e) => {
                   e?.target?.checked
-                    ? setCheckedItems((ci) => [...ci, "flower"])
-                    : setCheckedItems((ci) =>
-                        ci?.filter((item) => item != "flower")
-                      )
-                }
+                    ? setSearchParams((p) => ({ ...p, category: "flower" }))
+                    : setSearchParams((p) => ({ ...p, category: "" }));
+                }}
               >
                 Flowers
               </Checkbox>
               <Checkbox
                 size="sm"
                 colorScheme="green"
-                onChange={(e) =>
+                isChecked={searchParams?.category == "cloths"}
+                onChange={(e) => {
                   e?.target?.checked
-                    ? setCheckedItems((ci) => [...ci, "feel warm"])
-                    : setCheckedItems((ci) =>
-                        ci?.filter((item) => item != "feel warm")
-                      )
-                }
+                    ? setSearchParams((p) => ({ ...p, category: "cloths" }))
+                    : setSearchParams((p) => ({ ...p, category: "" }));
+                }}
               >
                 Feel Warm
               </Checkbox>
               <Checkbox
                 size="sm"
                 colorScheme="green"
-                onChange={(e) =>
+                isChecked={searchParams?.category == "chocolate"}
+                onChange={(e) => {
                   e?.target?.checked
-                    ? setCheckedItems((ci) => [...ci, "chocolate"])
-                    : setCheckedItems((ci) =>
-                        ci?.filter((item) => item != "chocolate")
-                      )
-                }
+                    ? setSearchParams((p) => ({ ...p, category: "chocolate" }))
+                    : setSearchParams((p) => ({ ...p, category: "" }));
+                }}
               >
                 Chocolates
               </Checkbox>
               <Checkbox
                 size="sm"
                 colorScheme="green"
-                onChange={(e) =>
+                isChecked={searchParams?.category == "decor"}
+                onChange={(e) => {
                   e?.target?.checked
-                    ? setCheckedItems((ci) => [...ci, "home decoration"])
-                    : setCheckedItems((ci) =>
-                        ci?.filter((item) => item != "home decoration")
-                      )
-                }
+                    ? setSearchParams((p) => ({ ...p, category: "decor" }))
+                    : setSearchParams((p) => ({ ...p, category: "" }));
+                }}
               >
                 Home Decoration
               </Checkbox>
@@ -154,9 +151,11 @@ export const SearchBar = () => {
             </HStack>
             <Select
               size="sm"
+              onChange={(e) =>
+                setSearchParams((p) => ({ ...p, order: e?.target?.value }))
+              }
               _focus={{ borderColor: "green.500", boxShadow: "none" }}
             >
-              <option value="new">New Addition</option>
               <option value="htl">Price: High to Low</option>
               <option value="lth">Price: Low to High</option>
             </Select>

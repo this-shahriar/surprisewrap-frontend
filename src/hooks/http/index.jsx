@@ -11,7 +11,7 @@ export const useHttp = () => {
         method: "GET",
         url: url,
         headers: token ? { Authorization: `Bearer ${token}` } : {},
-        params: params,
+        params: { ...params },
       });
 
       if (res && getFull) return res;

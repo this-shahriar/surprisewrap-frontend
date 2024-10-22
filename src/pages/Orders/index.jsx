@@ -1,10 +1,10 @@
 import {
   Badge,
   Button,
+  ButtonGroup,
   Divider,
   HStack,
   Icon,
-  IconButton,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -30,7 +30,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 export const Orders = () => {
   const { user } = useContext(AuthContext);
   const { cart } = useContext(ProductsContext);
-  const { orders, getOrders, deleteOrder, updateOrder } =
+  const { orders, getOrders, updateOrder, cancelOrder } =
     useContext(OrdersContext);
   useEffect(() => {
     getOrders();
@@ -110,31 +110,42 @@ export const Orders = () => {
                       <Td>
                         <HStack>
                           {user?.role === "manager" ? (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              colorScheme="cyan"
-                              isDisabled={order?.status != "ordered"}
-                              onClick={() =>
-                                updateOrder({
-                                  id: order?.id,
-                                  data: {
-                                    ...order,
-                                    products: JSON.stringify(order?.products),
-                                    status: "delivered",
-                                  },
-                                })
-                              }
-                            >
-                              Mark as delivered
-                            </Button>
+                            <ButtonGroup isAttached>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                colorScheme="red"
+                                isDisabled={order?.status != "ordered"}
+                                onClick={() => cancelOrder(order)}
+                              >
+                                Cancel
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                colorScheme="cyan"
+                                isDisabled={order?.status != "ordered"}
+                                onClick={() =>
+                                  updateOrder({
+                                    id: order?.id,
+                                    data: {
+                                      ...order,
+                                      products: JSON.stringify(order?.products),
+                                      status: "delivered",
+                                    },
+                                  })
+                                }
+                              >
+                                Mark as delivered
+                              </Button>
+                            </ButtonGroup>
                           ) : (
                             <Button
                               size="sm"
                               variant="outline"
                               colorScheme="red"
                               isDisabled={order?.status != "ordered"}
-                              onClick={() => deleteOrder({ id: order?.id })}
+                              onClick={() => cancelOrder(order)}
                             >
                               Cancel
                             </Button>

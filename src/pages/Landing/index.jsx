@@ -22,15 +22,24 @@ import { Cart } from "../../components/Cart";
 import { ProductMan } from "../../components/ProductMan";
 import { FcInfo } from "react-icons/fc";
 import { Footer } from "../../components/Footer";
+import { GiftPackages } from "../../components/GiftPackages";
 
 export const LandingPage = () => {
   const { pageMode, user, authModal, setAuthModal } = useContext(AuthContext);
 
-  const { getProducts, visibleItems, cartModal, setCartModal, products } =
-    useContext(ProductsContext);
+  const {
+    getProducts,
+    visibleItems,
+    cartModal,
+    setCartModal,
+    products,
+    getGifts,
+    gifts,
+  } = useContext(ProductsContext);
 
   useEffect(() => {
     getProducts();
+    getGifts();
   }, []);
 
   return (
@@ -49,6 +58,8 @@ export const LandingPage = () => {
           <Text fontSize="1rem">Empty</Text>
         </VStack>
       )}
+
+      {user?.role != "manager" && <GiftPackages gifts={gifts} />}
 
       <Modal isOpen={authModal} onClose={() => setAuthModal(false)}>
         <ModalOverlay />

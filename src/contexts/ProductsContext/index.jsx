@@ -17,6 +17,7 @@ export const ProductsContextProvider = ({ children }) => {
   const [products, setProducts] = useState();
   const [searchParams, setSearchParams] = useState({});
   const toast = useToast();
+  const [gifts, setGifts] = useState();
 
   const getProducts = async () => {
     const res = await get({
@@ -94,6 +95,25 @@ export const ProductsContextProvider = ({ children }) => {
     setCart((cart) => cart?.filter((ci) => ci?.id != item.id));
   };
 
+  const getGifts = async () => {
+    const res = await get({
+      url: ENDPOINTS.giftPackages,
+      token: user?.token,
+    });
+
+    if (res) setGifts(res);
+  };
+
+  const createGift = async (data) => {
+    const res = await post({
+      url: ENDPOINTS.giftPackages,
+      token: user?.token,
+      data: { ...data },
+    });
+
+    if (res) getGifts();
+  };
+
   useEffect(() => {
     getProducts();
   }, [JSON.stringify(searchParams)]);
@@ -122,6 +142,9 @@ export const ProductsContextProvider = ({ children }) => {
         setCart,
         setSearchParams,
         searchParams,
+        createGift,
+        getGifts,
+        gifts,
       }}
     >
       {children}

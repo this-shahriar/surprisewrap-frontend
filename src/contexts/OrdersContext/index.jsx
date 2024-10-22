@@ -62,9 +62,27 @@ export const OrdersContextProvider = ({ children }) => {
     }
   };
 
+  const cancelOrder = async (order) => {
+    updateOrder({
+      id: order?.id,
+      data: {
+        ...order,
+        products: JSON.stringify(order?.products),
+        status: "cancelled",
+      },
+    });
+  };
+
   return (
     <OrdersContext.Provider
-      value={{ orders, getOrders, createOrder, updateOrder, deleteOrder }}
+      value={{
+        orders,
+        getOrders,
+        createOrder,
+        updateOrder,
+        deleteOrder,
+        cancelOrder,
+      }}
     >
       {children}
     </OrdersContext.Provider>

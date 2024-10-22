@@ -1,10 +1,8 @@
-const base_url = "http://localhost:3001/";
-
 export const ENDPOINTS = {
-  login: base_url + "login",
-  register: base_url + "register",
-  products: base_url + "products",
-  orders: base_url + "orders",
-  giftPackages: base_url + "gift-packages",
-  ordersByUser: base_url + "orders/user",
+  login: process.env.REACT_APP_BASE_URL + "login",
+  register: process.env.REACT_APP_BASE_URL + "register",
+  products: process.env.REACT_APP_BASE_URL + "products",
+  orders: process.env.REACT_APP_BASE_URL + "orders",
+  giftPackages: process.env.REACT_APP_BASE_URL + "gift-packages",
+  ordersByUser: process.env.REACT_APP_BASE_URL + "orders/user",
 };

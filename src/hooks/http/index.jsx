@@ -3,8 +3,6 @@ import axios from "axios";
 
 export const useHttp = () => {
   const toast = useToast();
-  // const { logout } = useContext(AuthContext);
-
   const get = async ({ url, token, params, getFull }) => {
     try {
       const res = await axios({
@@ -52,7 +50,6 @@ export const useHttp = () => {
       }
 
       return null;
-      // todo logout
     }
   };
 
@@ -65,7 +62,6 @@ export const useHttp = () => {
         data: { ...data },
       });
 
-      // if (res?.status === 201) return true;
       if (res?.status === 201) return res?.data || true;
       else if (res?.status === 200) return res?.data;
       else return null;
@@ -79,7 +75,6 @@ export const useHttp = () => {
       }
 
       return null;
-      // todo logout
     }
   };
 

@@ -15,13 +15,15 @@ export const GiftPackages = ({ gifts }) => {
 
   return (
     <VStack w="95%" alignItems="center">
-      <HStack w="100%" pt="1rem" pb="1rem">
-        <Divider />
-        <Text fontWeight="bold" opacity={0.7} whiteSpace="nowrap">
-          Popular gift packages from others
-        </Text>
-        <Divider />
-      </HStack>
+      {gifts?.length > 0 && (
+        <HStack w="100%" pt="1rem" pb="1rem">
+          <Divider />
+          <Text fontWeight="bold" opacity={0.7} whiteSpace="nowrap">
+            Popular gift packages from others
+          </Text>
+          <Divider />
+        </HStack>
+      )}
       <HStack>
         {gifts?.map((gift) => (
           <VStack

@@ -1,8 +1,8 @@
 export const ENDPOINTS = {
-  login: process.env.REACT_APP_BASE_URL + "login",
-  register: process.env.REACT_APP_BASE_URL + "register",
-  products: process.env.REACT_APP_BASE_URL + "products",
-  orders: process.env.REACT_APP_BASE_URL + "orders",
-  giftPackages: process.env.REACT_APP_BASE_URL + "gift-packages",
-  ordersByUser: process.env.REACT_APP_BASE_URL + "orders/user",
+  login: import.meta.env.VITE_BASE_URL + "login",
+  register: import.meta.env.VITE_BASE_URL + "register",
+  products: import.meta.env.VITE_BASE_URL + "products",
+  orders: import.meta.env.VITE_BASE_URL + "orders",
+  giftPackages: import.meta.env.VITE_BASE_URL + "gift-packages",
+  ordersByUser: import.meta.env.VITE_BASE_URL + "orders/user",
 };

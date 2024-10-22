@@ -25,9 +25,10 @@ export const ProductSection = ({ name, products }) => {
       </HStack>
       <VStack w="100%" alignItems="center">
         <Flex flexDir="row" w="100%" flexWrap="wrap" justifyContent="center">
-          {products?.map((item) => (
-            <ProductCard key={item?.id} product={item} />
-          ))}
+          {products &&
+            products?.map((item) => (
+              <ProductCard key={item?.id} product={item} />
+            ))}
         </Flex>
       </VStack>
     </VStack>

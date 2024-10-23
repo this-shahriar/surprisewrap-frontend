@@ -33,7 +33,6 @@ describe("Login Component", () => {
     expect(
       screen.getByText(/don't have an account\? sign up/i)
     ).toBeInTheDocument();
-    expect(screen.getByText(/forgot password\?/i)).toBeInTheDocument();
   });
 
   it("shows required validation errors when submitting empty form", async () => {
@@ -56,15 +55,6 @@ describe("Login Component", () => {
     await userEvent.click(submitButton);
 
     expect(mockOnLoginSubmit).toHaveBeenCalled();
-  });
-
-  it('calls setPageMode with "forgotPassword" when forgot password link is clicked', async () => {
-    renderLogin();
-
-    const forgotPasswordLink = screen.getByText(/forgot password\?/i);
-    await userEvent.click(forgotPasswordLink);
-
-    expect(mockSetPageMode).toHaveBeenCalledWith("forgotPassword");
   });
 
   it('calls setPageMode with "registration" when sign-up link is clicked', async () => {

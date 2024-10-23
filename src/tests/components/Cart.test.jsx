@@ -4,17 +4,20 @@ import { Cart } from "../../components/Cart";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 import { ProductsContext } from "../../contexts/ProductsContext";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Cart", () => {
   const mockRemoveFromCart = vi.fn();
 
   const renderCart = (cartItems = []) => {
     return render(
-      <ProductsContext.Provider
-        value={{ cart: cartItems, removeFromCart: mockRemoveFromCart }}
-      >
-        <Cart />
-      </ProductsContext.Provider>
+      <BrowserRouter>
+        <ProductsContext.Provider
+          value={{ cart: cartItems, removeFromCart: mockRemoveFromCart }}
+        >
+          <Cart />
+        </ProductsContext.Provider>
+      </BrowserRouter>
     );
   };
 

@@ -65,6 +65,7 @@ export const SearchBar = () => {
             <IconButton
               size="lg"
               variant="link"
+              data-testid="filter-button"
               colorScheme="green"
               icon={<Icon as={MdOutlineSettings} />}
             />

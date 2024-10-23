@@ -105,6 +105,7 @@ export const ProductMan = () => {
                         />
                         <IconButton
                           size="sm"
+                          data-testid="delete-product"
                           variant="outline"
                           icon={<Icon as={MdDelete} />}
                           onClick={() => deleteProduct({ id: product?.id })}
